@@ -21,7 +21,7 @@ router.route("/personalBooks").get(book.listPersonalBooks);
 
 router
   .route("/:id")
-  .get(isLogin, book.read)
+  .get(book.read)
   .put(isLogin, upload.single("file"), book.update)
   .patch(isLogin, upload.single("file"), book.update)
   .delete(isAdmin, book.delete);
