@@ -5,20 +5,18 @@ const multer = require("multer");
 /* ------------------------------------------------------- */
 // routes/message:
 
-
 const { isAdmin, isLogin } = require("../middlewares/permissions");
 const message = require("../controllers/message");
 
 // URL: /users
 
-router
-  .route("/")
-  .get(isLogin, message.list)
-  .post(isLogin, message.create);
+router.route("/").get(isLogin, message.list).post(isLogin, message.create);
 
-router
-  .route("/isThereMessage/:id")
-  .get(isLogin, message.isThereMessage)
+router.route("/isNewMessage").get(isLogin, message.newMessage);
+router.route("/red/:id").put(isLogin, message.red);
+
+router.route("/isThereMessage/:id").get(isLogin, message.isThereMessage);
+
 router
   .route("/:id")
   .get(isLogin, message.read)

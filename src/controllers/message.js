@@ -29,6 +29,42 @@ module.exports = {
       data,
     });
   },
+  newMessage: async (req, res) => {
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "List Users"
+            
+        */
+
+    const data = await Message.find({
+      participants: {
+        $elemMatch: {
+          user_id: req?.user?._id,
+        },
+      },
+    });
+
+    const filtered = data.filter(
+      (messageModel) =>
+        messageModel.participants?.filter(
+          (participant) => participant?.user_id == req.user._id
+        )[0].lastSeen == "0" ||
+        new Date(
+          messageModel.participants?.filter(
+            (participant) => participant?.user_id == req.user._id
+          )[0].lastSeen
+        ).getTime() <
+          new Date(
+            messageModel.messages[messageModel.messages.length - 1].date
+          ).getTime()
+    );
+    const isNewMessage = filtered?.length > 0 ? true : false;
+
+    res.status(200).send({
+      error: false,
+      data: isNewMessage,
+    });
+  },
   isThereMessage: async (req, res) => {
     /*
             #swagger.tags = ["Users"]
@@ -45,16 +81,15 @@ module.exports = {
       book_id: req.params.id,
     });
 
-    let result = false
+    let result = false;
 
-
-    if (data.length==1 ){
-      result = true
+    if (data.length == 1) {
+      result = true;
     }
     res.status(200).send({
       error: false,
       result,
-      id: result?data[0]?._id : 1
+      id: result ? data[0]?._id : 1,
     });
   },
 
@@ -155,17 +190,74 @@ module.exports = {
     message?.messages?.push({
       user_id: req?.user?._id,
       message: req?.body?.message,
-      date: new Date(),
-    })
+      date: req?.body?.date,
+    });
 
-
-    const data = await Message.updateOne(
+    await Message.updateOne(
       { _id: req.params.id },
-      { messages: message?.messages },
+      {
+        messages: message?.messages,
+        participants: message?.participants.map((participant) => {
+          if (participant?.user_id === req?.user._id) {
+            // Eğer user_id eşleşiyorsa, lastSeen'i güncelle
+            return {
+              ...participant,
+              lastSeen: req?.body?.date, // req.body.date değeri lastSeen'e atanır
+            };
+          }
+          return participant; // Eşleşmeyenler olduğu gibi bırakılır
+        }),
+      },
       {
         runValidators: true,
       }
     );
+
+    res.status(202).send({
+      error: false,
+      data: await Message.findOne({ _id: req.params.id }),
+    });
+  },
+  red: async (req, res) => {
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Update Message"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    "username": "test",
+                    "password": "1234",
+                    "email": "test@site.com",
+                    "people":[],
+                    "planets":[]
+                  
+                }
+            }
+        */
+
+    const message = await Message.findOne({ _id: req.params.id });
+
+    const control = message.participants.filter(
+      (item) => item?.user_id == req?.user?._id
+    );
+
+    if (control?.length == 0)
+      throw new Error("Bu işlem için yetkili değilsiniz.");
+
+    const updatedParticipants = message.participants.map((participant) => {
+      if (participant.user_id.toString() === req.user._id.toString()) {
+        // Eğer eşleşen user_id varsa, lastSeen'i güncelliyoruz
+        participant.lastSeen = req.body.date;
+      }
+      return participant;
+    });
+
+    message.participants = updatedParticipants;
+
+    await Message.updateOne({ _id: req.params.id }, message, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,
