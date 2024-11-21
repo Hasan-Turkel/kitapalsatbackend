@@ -36,6 +36,9 @@ app.use(cors());
 app.use(require('./src/middlewares/authentication'))
 
 
+app.use(require('./src/middlewares/filterPaginate'))
+
+
 /* ------------------------------------------------------- */
 // Routes:
 

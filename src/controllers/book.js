@@ -27,12 +27,14 @@ module.exports = {
 
     // const filters = req.user?.is_superadmin ? {} : { _id: req.user?._id };
 
-    const data = await Book.find({isDeleted:false, isActive:true }).populate(
-      "user_id"
-    );
+    const data = await res.getModelList(Book, {isDeleted:false, isActive:true },  "user_id" );
+    // Book.find({isDeleted:false, isActive:true }).populate(
+    //   "user_id"
+    // );
     res.status(200).send({
       error: false,
-      data,
+      data:data.data,
+      count:data.dataCount
     });
   },
   listPersonalBooks: async (req, res) => {
