@@ -130,7 +130,7 @@ module.exports = {
 
     res.status(201).send({
       error: false,
-      ...data._doc,
+     data:{...data._doc}
     });
   },
 
@@ -148,12 +148,6 @@ module.exports = {
 
     if (control?.length == 0)
       throw new Error("Bu işlem için yetkili değilsiniz.");
-
-    await Message.updateOne(
-      { "participants.user_id": req.user?.user_id },
-      { $set: { "participants.$.lastSeen": new Date() } }
-    );
-
     res.status(200).send({
       error: false,
       data,
@@ -193,25 +187,18 @@ module.exports = {
       date: req?.body?.date,
     });
 
-    await Message.updateOne(
-      { _id: req.params.id },
-      {
-        messages: message?.messages,
-        participants: message?.participants.map((participant) => {
-          if (participant?.user_id === req?.user._id) {
-            // Eğer user_id eşleşiyorsa, lastSeen'i güncelle
-            return {
-              ...participant,
-              lastSeen: req?.body?.date, // req.body.date değeri lastSeen'e atanır
-            };
-          }
-          return participant; // Eşleşmeyenler olduğu gibi bırakılır
-        }),
-      },
-      {
-        runValidators: true,
-      }
-    );
+    const updatedParticipants = message.participants.map((participant) => {
+      return participant?.user_id.toString() === req?.user._id.toString()
+        ? { ...participant, lastSeen: req?.body?.date }
+        : participant;
+    });
+    message.participants = updatedParticipants;
+
+    console.log(message);
+
+    await Message.updateOne({ _id: req.params.id }, message, {
+      runValidators: true,
+    });
 
     res.status(202).send({
       error: false,
