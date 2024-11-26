@@ -14,6 +14,7 @@ module.exports = {
       participants: {
         $elemMatch: {
           user_id: req?.user?._id,
+          lastSeen: { $ne: "-1" },
         },
       },
     }).populate({
@@ -40,6 +41,7 @@ module.exports = {
       participants: {
         $elemMatch: {
           user_id: req?.user?._id,
+          lastSeen: { $ne: "-1" },
         },
       },
     });
@@ -130,7 +132,7 @@ module.exports = {
 
     res.status(201).send({
       error: false,
-     data:{...data._doc}
+      data: { ...data._doc },
     });
   },
 
@@ -190,11 +192,11 @@ module.exports = {
     const updatedParticipants = message.participants.map((participant) => {
       return participant?.user_id.toString() === req?.user._id.toString()
         ? { ...participant, lastSeen: req?.body?.date }
+        : participant?.lastSeen == "-1"
+        ? { ...participant, lastSeen: "0" }
         : participant;
     });
     message.participants = updatedParticipants;
-
-    console.log(message);
 
     await Message.updateOne({ _id: req.params.id }, message, {
       runValidators: true,
@@ -205,7 +207,7 @@ module.exports = {
       data: await Message.findOne({ _id: req.params.id }),
     });
   },
-  red: async (req, res) => {
+  redOrDelete: async (req, res) => {
     /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Update Message"

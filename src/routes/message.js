@@ -13,7 +13,7 @@ const message = require("../controllers/message");
 router.route("/").get(isLogin, message.list).post(isLogin, message.create);
 
 router.route("/isNewMessage").get(isLogin, message.newMessage);
-router.route("/red/:id").put(isLogin, message.red);
+router.route("/redOrDelete/:id").put(isLogin, message.redOrDelete);
 
 router.route("/isThereMessage/:id").get(isLogin, message.isThereMessage);
 
