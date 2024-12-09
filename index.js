@@ -46,7 +46,7 @@ app.use(require('./src/middlewares/filterPaginate'))
 app.all('/', (req, res) => {
     res.send({
         error: false,
-        message: 'Welcome to StarWars App',
+        message: 'Welcome to IkinciElKitapAlSat',
         documents: {
             swagger: '/documents/swagger',
             redoc: '/documents/redoc',

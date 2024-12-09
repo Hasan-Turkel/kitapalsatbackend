@@ -25,8 +25,8 @@ const document = {
 		Token: {
 			type: 'apiKey',
 			in: 'header',
-			name: 'Authorization',
-			description: 'Simple Token Authentication * Example: <b>Token ...tokenKey...</b>'
+			name: 'authorization',
+			description: 'JWT Token Authentication * Example: <b>Bearer ...tokenKey...</b>'
 		},
 
 	}],
@@ -34,6 +34,8 @@ const document = {
 	definition: {
 		// Models:
 		"User": require('./src/models/user').schema.obj,
+		"Books": require('./src/models/books').schema.obj,
+		"Messages": require('./src/models/messages').schema.obj,
 	}
 }
 

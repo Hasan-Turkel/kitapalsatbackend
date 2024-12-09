@@ -5,8 +5,8 @@ const Message = require("../models/messages");
 module.exports = {
   list: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
-            #swagger.summary = "List Users"
+            #swagger.tags = ["Messages"]
+            #swagger.summary = "List Messages"
             
         */
 
@@ -32,8 +32,8 @@ module.exports = {
   },
   newMessage: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
-            #swagger.summary = "List Users"
+            #swagger.tags = ["Messages"]
+            #swagger.summary = "List Messages"
             
         */
 
@@ -69,8 +69,8 @@ module.exports = {
   },
   isThereMessage: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
-            #swagger.summary = "List Users"
+            #swagger.tags = ["Messages"]
+            #swagger.summary = "List Messages"
             
         */
 
@@ -97,17 +97,11 @@ module.exports = {
 
   create: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
+            #swagger.tags = ["Messages"]
             #swagger.summary = "Create Message"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
-                schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-            
-                }
+                
             }
         */
 
@@ -138,7 +132,7 @@ module.exports = {
 
   read: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
+            #swagger.tags = ["Messages"]
             #swagger.summary = "Get Single Message"
         */
 
@@ -158,19 +152,11 @@ module.exports = {
 
   update: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
+            #swagger.tags = ["Messages"]
             #swagger.summary = "Update Message"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
-                schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "people":[],
-                    "planets":[]
-                  
-                }
+              
             }
         */
 
@@ -209,19 +195,11 @@ module.exports = {
   },
   redOrDelete: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
+            #swagger.tags = ["Messages"]
             #swagger.summary = "Update Message"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
-                schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "people":[],
-                    "planets":[]
-                  
-                }
+               
             }
         */
 
@@ -256,7 +234,7 @@ module.exports = {
 
   delete: async (req, res) => {
     /*
-            #swagger.tags = ["Users"]
+            #swagger.tags = ["Messages"]
             #swagger.summary = "Delete Message"
         */
 

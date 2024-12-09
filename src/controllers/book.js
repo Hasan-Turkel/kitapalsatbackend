@@ -13,16 +13,9 @@ cloudinary.config({
 module.exports = {
   list: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
-            #swagger.summary = "List Assays"
-            #swagger.description = `
-                You can send query with endpoint for search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
-            `
+            #swagger.tags = ["Books"]
+            #swagger.summary = "List Books"
+            
         */
 
     // const filters = req.user?.is_superadmin ? {} : { _id: req.user?._id };
@@ -39,16 +32,9 @@ module.exports = {
   },
   listPersonalBooks: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
-            #swagger.summary = "List Assays"
-            #swagger.description = `
-                You can send query with endpoint for search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
-            `
+            #swagger.tags = ["Books"]
+            #swagger.summary = "List Books"
+          
         */
 
     const data = await Book.find({ user_id: req.user?._id, isDeleted:false }).populate(
@@ -62,14 +48,11 @@ module.exports = {
 
   create: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
+            #swagger.tags = ["Books"]
             #swagger.summary = "Create Book"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Book'
-                }
+               
             }
         */
     if (req.file) {
@@ -116,7 +99,7 @@ module.exports = {
 
   read: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
+            #swagger.tags = ["Books"]
             #swagger.summary = "Get Single Book"
         */
 
@@ -131,15 +114,12 @@ module.exports = {
 
   update: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
+            #swagger.tags = ["Books"]
             #swagger.summary = "Update Book"
             #swagger.description = "Look to <b>'Models/Personnel'</b> for parameters."
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: 'true',
-                schema: {
-                    $ref: '#/definitions/Book'
-                }
+               
             }
         */
 
@@ -199,7 +179,7 @@ module.exports = {
 
   delete: async (req, res) => {
     /*
-            #swagger.tags = ["Assays"]
+            #swagger.tags = ["Books"]
             #swagger.summary = "Delete Book"
         */
     const currentBook = await Book.findOne({ _id: req.params.id });

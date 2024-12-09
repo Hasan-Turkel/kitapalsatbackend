@@ -1,8 +1,8 @@
 {
-  "title": "StarWars APP",
-  "name": "starwars",
+  "title": "IkinciElKitapAlSat",
+  "name": "ikincielkitapalsat",
   "version": "1.0.0",
-  "description": "Star Wars View System",
+  "description": "IkinciElKitapAlSat View System",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

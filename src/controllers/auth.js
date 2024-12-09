@@ -11,7 +11,7 @@ module.exports = {
     /*
             #swagger.tags = ["Authentication"]
             #swagger.summary = "Login"
-            #swagger.description = 'Login with username (or email) and password for get simpleToken'
+            #swagger.description = 'Login with email and password for get JWT'
             #swagger.parameters["body"] = {
                 in: "body",
                 required: true,
@@ -50,7 +50,7 @@ module.exports = {
     /*
             #swagger.tags = ["Authentication"]
             #swagger.summary = "Register"
-            #swagger.description = 'Register with username, email) and password for get simpleToken'
+            #swagger.description = 'Register with username, email) and password for get JWT'
             #swagger.parameters["body"] = {
                 in: "body",
                 required: true,

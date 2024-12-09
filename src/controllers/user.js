@@ -75,8 +75,7 @@ module.exports = {
                     "username": "test",
                     "password": "1234",
                     "email": "test@site.com",
-                    "people":[],
-                    "planets":[]
+                  
                   
                 }
             }
