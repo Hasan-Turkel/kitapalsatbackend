@@ -31,8 +31,8 @@ const cors = require('cors');
 
 app.use(cors({
       origin: 'http://localhost:3000',
-      methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-      allowedHeaders: ['Content-Type', 'Authorization'], // İzin verilen başlıklar
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+      allowedHeaders: ['Content-Type', 'authorization', 'X-Requested-With' ], // İzin verilen başlıklar
       preflightContinue: true,  // Preflight (OPTIONS) isteğini kontrol et
     }));
 
