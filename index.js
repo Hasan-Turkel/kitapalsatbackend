@@ -29,14 +29,9 @@ app.use(express.json())
 
 const cors = require('cors');
 
-app.use(cors({
-      origin: 'http://localhost:3000',
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
-      allowedHeaders: ['Content-Type', 'authorization', 'X-Requested-With' ], // İzin verilen başlıklar
-      credentials: true,  // Preflight (OPTIONS) isteğini kontrol et
-    }));
+app.use(cors());
 
-    app.options('*', cors());
+    
 
 
 // Check Authentication:
