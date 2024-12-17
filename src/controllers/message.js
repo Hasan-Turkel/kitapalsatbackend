@@ -23,7 +23,7 @@ module.exports = {
         path: "user_id", // book_id içindeki user_id'yi populate ediyoruz
         model: "User", // user_id'nin bağlı olduğu model (User)
       },
-    });
+    }).populate('participants.user_id');
 
     res.status(200).send({
       error: false,
@@ -136,10 +136,10 @@ module.exports = {
             #swagger.summary = "Get Single Message"
         */
 
-    const data = await Message.findOne({ _id: req.params.id });
+    const data = await Message.findOne({ _id: req.params.id }).populate('participants.user_id');
 
     const control = data?.participants.filter(
-      (item) => item?.user_id == req?.user?._id
+      (item) => item?.user_id._id == req?.user?._id
     );
 
     if (control?.length == 0)
