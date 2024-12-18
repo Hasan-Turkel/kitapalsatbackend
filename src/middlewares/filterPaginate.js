@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   // PAGINATION: URL?page=1&limit=10
   // LIMIT:
-  const limit = 10;
+  const limit = 5;
   // PAGE:
 
   const page = req.query?.page ? Number(req.query?.page) - 1 : 0;
@@ -43,7 +43,7 @@ module.exports = (req, res, next) => {
   // Run SearchingSortingPagination engine for Model:
   res.getModelList = async function (Model, filters = {}, populate = null) {
     const filtersAndSearch = { ...filters, ...searchQuery };
-    let data = await Model.find(filtersAndSearch)
+    let data = await Model.find(filtersAndSearch).sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .populate(populate);

@@ -23,7 +23,7 @@ module.exports = {
         path: "user_id", // book_id içindeki user_id'yi populate ediyoruz
         model: "User", // user_id'nin bağlı olduğu model (User)
       },
-    }).populate('participants.user_id');
+    }).populate('participants.user_id').sort({ updatedAt: -1 });
 
     res.status(200).send({
       error: false,
