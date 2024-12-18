@@ -1,9 +1,6 @@
-# starWars-backend
+# IkinciElKitapAlSat Backend Repo
 
-StarWarsApp is a project that you can see planets and characters of Star Wars movies. Then you can see detail of planet and characters and add to favorites. And this repo is the backend side of the project. To see the frontend repo you can visit [starWars-frontend.](https://github.com/Hasan-Turkel/starWars-frontend) <br>
+IkinciElKitapAlSat is a project that you can sell or buy books. And this repo is the backend side of the project. To see the frontend repo you can visit [kitapalsatnext.](https://github.com/Hasan-Turkel/kitapalsatnext) <br>
 
-## [Click to see live link.](https://star-wars-backend-mu.vercel.app/)
+## [Click to see live link.](https://kitapalsat.vercel.app/)
 
-## This is how the site looks like.
-
-![./starwars.jpg](./starwars.jpg)
